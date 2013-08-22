@@ -35,11 +35,13 @@ object NakContext {
   /**
    * Convert examples stored in CSV format (one per line) into a sequence of Examples.
    */
-  def fromCsvFile(filename: String): Iterator[Example[String,Seq[FeatureObservation[String]]]] = {
+  def fromCsvFile(filename: String): Iterator[Example[String,String]] = {
+    var count = 0 
     for (line <- Source.fromFile(filename).getLines) yield {
       val items = line.split(",")
-      val features = items.dropRight(1).map(descr=>FeatureObservation(descr))
+      val features = items(0)
       val label = items.last
+      count+=1
       Example(label, features)
     }
   }
