@@ -50,6 +50,7 @@ object NakContext {
    */ 
   def fromLabeledDirs(topdir: File)
     (implicit codec: scala.io.Codec): Iterator[Example[String,String]] = {
+    var id = 0
     for {
       dir <- topdir.listFiles.toIterator.filter(_.isDirectory);
       label = dir.getName;
@@ -58,7 +59,8 @@ object NakContext {
       val fileSource = Source.fromFile(file)
       val text = fileSource.mkString
       fileSource.close
-      Example(label, text, file.getName)
+      id+=1
+      Example(label, text, file.getName,id.toString)
     }
   }
 
