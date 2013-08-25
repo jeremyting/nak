@@ -42,7 +42,7 @@ object NakContext {
       val features = items(0)
       val label = items.last
       count+=1
-      Example(label, features)
+      Example(label, features, count)
     }
   }
 
